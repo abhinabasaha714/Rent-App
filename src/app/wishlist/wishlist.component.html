@@ -1,5 +1,8 @@
 <div class="container">
-    <div class="row">
+  <div class="row" *ngIf="!wishlist.length">
+    <h3>Wishlist is empty. Please Add them from the home screen</h3>
+  </div>
+    <div class="row" *ngIf="wishlist.length">
       <div class="col-md-4" *ngFor="let apartment of wishlist">
         <div class="card mb-4">
           <img class="card-img-top" [src]="apartment.image" alt="{{apartment.title}}">
@@ -13,5 +16,6 @@
         </div>
       </div>
     </div>
+    
   </div>
   
