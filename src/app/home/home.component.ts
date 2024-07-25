@@ -5,6 +5,8 @@ import { RouterModule } from '@angular/router';
 import { WishlistService } from '../services/wishlist.service';
 import { TextMagnifyDirective } from '../directive/text-magnify.directive';
 import { HeaderComponent } from '../header/header.component';
+import { SearchService } from '../services/search.service';
+import { BehaviorSubject, debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -16,19 +18,47 @@ import { HeaderComponent } from '../header/header.component';
 export class HomeComponent implements OnInit {
   apartments: any[] = [];
   currentApartment: any;
+  filteredApartments: any[] = [];
   searchText: any;
   currentIndex =0;
+  private searchSubject = new BehaviorSubject<string>('');
 
-  constructor(private apartmentService: ApartmentService, private wishlistService: WishlistService) {
+  constructor(private apartmentService: ApartmentService, private wishlistService: WishlistService, private searchService:SearchService) {
   }
   ngOnInit(): void {
     this.loadApartments();
     this.currentApartment = this.apartments[0]; 
+    this.searchService.searchData$.pipe(
+      debounceTime(300),
+      distinctUntilChanged()
+    ).subscribe(query => {
+      this.searchSubject.next(query);
+    });
+
+    this.searchSubject.pipe(
+      switchMap(query => this.apartmentService.getApartments().pipe(
+        map(apartments => this.filterApartments(apartments, query))
+      ))
+    ).subscribe(filteredApartments => {
+      this.filteredApartments = filteredApartments;
+    });
     
   }
 
   public loadApartments() {
     this.apartmentService.getApartments().subscribe(data => this.apartments = data);
+  }
+
+  public filterApartments(apartments: any[], query: string) {
+    if (!query) {
+      return apartments;
+    } else {
+      return apartments.filter(apartment =>
+        apartment.title.toLowerCase().includes(query.toLowerCase()) ||
+        apartment.location.toLowerCase().includes(query.toLowerCase()) ||
+        apartment.price.toString().includes(query)
+      );
+    }
   }
 
   public addToWishlist(property: any) {
