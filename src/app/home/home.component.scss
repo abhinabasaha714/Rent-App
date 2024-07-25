@@ -1,0 +1,24 @@
+.carousel-item {
+  height: 400px;
+}
+
+.carousel-item img {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+.carousel-image img {
+  width: 136%;
+  position: absolute;
+  left: 23%;
+}
+
+.btn-position-right {
+  position: absolute;
+  left: 85%;
+  top: 40%;
+}
+.btn-position-left {
+  position: absolute;
+  top: 38%;
+}

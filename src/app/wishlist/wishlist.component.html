@@ -1,0 +1,17 @@
+<div class="container">
+    <div class="row">
+      <div class="col-md-4" *ngFor="let apartment of wishlist">
+        <div class="card mb-4">
+          <img class="card-img-top" [src]="apartment.image" alt="{{apartment.title}}">
+          <div class="card-body">
+            <h5 class="card-title">{{apartment.title}}</h5>
+            <p class="card-text">{{apartment.description}}</p>
+            <p class="card-text"><small class="text-muted">Location: {{apartment.location}}</small></p>
+            <p class="card-text"><small class="text-muted">Price: {{apartment.price | currency}}</small></p>
+            <button class="btn btn-danger" (click)="removeFromWishlist(apartment.id)">Remove from Wishlist</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

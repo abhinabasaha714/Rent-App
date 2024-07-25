@@ -1,0 +1,39 @@
+<div class="container">
+    <div *ngIf="apartment">
+      <h5>{{ apartment.title }}</h5>
+      <img [src]="apartment.image" class="w-50" alt="Apartment image" class="img-fluid">
+      <p>{{ apartment.description }}</p>
+      <p><strong>Location:</strong> {{ apartment.location }}</p>
+      <p><strong>Price:</strong> Rs{{ apartment.price }}/month</p>
+      <p><strong>Amenities:</strong></p>
+      <ul>
+        <li *ngIf="apartment.amenities.furnished">Furnished</li>
+        <li *ngIf="apartment.amenities.parking">Parking</li>
+        <li *ngIf="apartment.amenities.pool">Pool</li>
+      </ul>
+    </div>    
+  </div>
+
+  <!-- <div class="container mt-4" *ngIf="apartment">
+    <div class="card mb-4">
+      <img class="card-img-top" [src]="apartment.image" alt="{{apartment.title}}">
+      <div class="card-body">
+        <h5 class="card-title">{{apartment.title}}</h5>
+        <p class="card-text">{{apartment.description}}</p>
+        <p class="card-text"><small class="text-muted">Location: {{apartment.location}}</small></p>
+        <p class="card-text"><small class="text-muted">Price: {{apartment.price | currency}}</small></p>
+      </div>
+    </div> -->
+  
+    <div class="card mb-4">
+      <div class="card-header">Comments</div>
+      <div class="card-body">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item" *ngFor="let comment of comments">{{comment}}</li>
+        </ul>
+        <div class="mt-3">
+          <textarea [(ngModel)]="newComment" class="form-control" rows="3" placeholder="Add a comment"></textarea>
+          <button class="btn btn-primary mt-2" (click)="addComment()">Submit</button>
+        </div>
+      </div>
+    </div>

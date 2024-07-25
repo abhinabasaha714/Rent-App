@@ -1,0 +1,64 @@
+
+<div class="container">
+  <div class="row mt-4 bg-dark bg-gradient p-3 rounded shadow-lg">
+    <div class="col-md-8 ">
+      <div class="row">
+        <div class="col-1 btn-position-left">
+          <button (click)="previousImage()" class="btn btn-outline-light">&#10094;</button>
+        </div>
+        <div class="col-md-6 ">
+          <div class="carousel-image ">
+            <img [src]="currentImage.image" alt="{{currentImage.title}}">
+          </div>
+  
+        </div>
+        <div class="col-md-1 btn-position-right">
+          <button (click)="nextImage()" class="btn btn-outline-light">&#10095;</button>  
+        </div>
+      </div>
+      
+      
+    </div>
+    <div class="col-4 bg-white bg-gradient p-3">
+      <div class="carousel-details">
+        <h5>{{currentImage.title}}</h5>
+        <p>{{currentImage.description}}</p>
+        <p><strong>Location:</strong> {{currentImage.location}}</p>
+        <p><strong>Price:</strong> Rs {{currentImage.price}}/month</p>
+        <p><strong>Amenities:</strong></p>
+        <ul>
+          <li>Furnished: {{currentImage.amenities?.furnished ? 'Yes' : 'No'}}</li>
+          <li>Parking: {{currentImage.amenities?.parking ? 'Yes' : 'No'}}</li>
+          <li>Pool: {{currentImage.amenities?.pool ? 'Yes' : 'No'}}</li>
+        </ul>
+      </div>
+    </div>   
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-md-4" *ngFor="let apartment of apartments">
+      <div class="card mt-5 shadow-lg" appTextMagnify>
+        <img
+          class="card-img-top"
+          [src]="apartment.image"
+          alt="Apartment image"
+        />
+        <div class="card-body">
+          <h5 class="card-title text-nowrap">{{ apartment.title }}</h5>
+          <p class="card-text">{{ apartment.description }}</p>
+          <p class="card-text"> Rs {{ apartment.price }}/month</p>
+          <a [routerLink]="['/apartment', apartment.id]" class="btn btn-outline-primary"
+            >View Details</a
+          >
+          <button
+            class="btn btn-outline-success ms-3"
+            (click)="addToWishlist(apartment)"
+            [disabled]="isAdded(apartment.id)"
+          >
+            {{ isAdded(apartment.id) ? "Added" : "Add to Wishlist" }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

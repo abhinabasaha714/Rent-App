@@ -1,0 +1,30 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">
+      <img class="image-logo" alt="rent logo" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2PP66vLWhnPdxDGyAnfxcrbrysxfygiXZ-gxUTX6eJ-bD00SiI7pCXz8DjzUP-4RUcx4&usqp=CAU" />
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item" appTextMagnify>
+          <a class="nav-link" routerLink="/create-post">Create Post</a>
+        </li>
+        <li class="nav-item"appTextMagnify>
+          <a class="nav-link" routerLink="/wishlist">Wishlist</a>
+        </li>
+        <li class="nav-item" *ngIf="!isLoggedin" appTextMagnify>
+          <a class="nav-link" routerLink="/signup">Sign Up</a>
+        </li>
+        <li class="nav-item" *ngIf="isLoggedin"appTextMagnify>
+          <a class="nav-link" href="#" (click)="logout()">Logout</a>
+        </li>
+      </ul>
+      
+    </div>
+  </nav>
+  
+  <div class="container mt-4">
+    <router-outlet></router-outlet>
+  </div>
+  

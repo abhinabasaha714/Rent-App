@@ -1,0 +1,372 @@
+<div class="container mt-4">
+  <div class="row border border-dark p-4 shadow-lg">
+    <form [formGroup]="propertyForm" (ngSubmit)="onSubmit()">
+      <div class="row mb-3">
+        <h5 class="font-weight-bold">Choose your Apartment/Building</h5>
+        <div class="col-6">
+          <label for="buildingType" class="d-block"
+            >Choose your Apartment/Building*</label
+          >
+          <select
+            name="type"
+            class="w-100 border border-dark border-2"
+            formControlName="buildingType"
+          >
+            <option *ngFor="let bType of buildingType" value="bType">
+              {{ bType }}
+            </option>
+          </select>
+
+          <div
+            *ngIf="
+              f.buildingType.invalid &&
+              (f.buildingType.dirty || f.buildingType.touched)
+            "
+            class="text-danger"
+          >
+            Building type is required.
+          </div>
+        </div>
+        <div class="col-6">
+          <label for="buildingName" class="d-block"
+            >Enter name of Apartment/Building*</label
+          >
+          <input
+            id="buildingName"
+            class="w-100 border border-dark border-2"
+            type="text"
+            formControlName="buildingName"
+          />
+          <div
+            *ngIf="
+              f.buildingName.invalid &&
+              (f.buildingName.dirty || f.buildingName.touched)
+            "
+            class="text-danger"
+          >
+            Building name is required.
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <h5>Is this a Shared Property*</h5>
+        <div class="col-12">
+          <input type="radio" formControlName="sharedProperty" value="Yes" />
+          Yes
+        </div>
+        <div class="col-12">
+          <input type="radio" formControlName="sharedProperty" value="No" /> No
+        </div>
+        <div
+          *ngIf="
+            f.sharedProperty.invalid &&
+            (f.sharedProperty.dirty || f.sharedProperty.touched)
+          "
+          class="text-danger"
+        >
+          Shared property selection is required.
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <h5>Property Location</h5>
+        <div class="col-12">
+          <label for="streetAddress" class="d-block">Street Address*</label>
+          <input
+            id="streetAddress"
+            class="w-100 border border-dark border-2"
+            type="text"
+            formControlName="streetAddress"
+          />
+          <div
+            *ngIf="
+              f.streetAddress.invalid &&
+              (f.streetAddress.dirty || f.streetAddress.touched)
+            "
+            class="text-danger"
+          >
+            <div *ngIf="f.streetAddress.errors?.required">
+              Street address is required.
+            </div>
+            <div *ngIf="f.streetAddress.errors?.minlength">
+              Street address must be at least 10 characters long.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <h5>Property Details*</h5>
+        <div class="col-6">
+          <label for="squareFeet" class="d-block">Square Feet*</label>
+          <input
+            id="squareFeet"
+            class="w-100 border border-dark border-2"
+            type="text"
+            formControlName="squareFeet"
+          />
+          <div
+            *ngIf="
+              f.squareFeet.invalid &&
+              (f.squareFeet.dirty || f.squareFeet.touched)
+            "
+            class="text-danger"
+          >
+            <div *ngIf="f.squareFeet.errors?.required">
+              Square feet is required.
+            </div>
+            <div *ngIf="f.squareFeet.errors?.pattern">
+              Square feet must be a number.
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <label class="d-block">Stay / Lease type*</label>
+          <div>
+            <input type="radio" value="longTerm" formControlName="term" />Long
+            Term
+          </div>
+          <div>
+            <input type="radio" value="shortTerm" formControlName="term" />Short
+            Term
+          </div>
+          <div>
+            <input type="radio" value="both" formControlName="term" />Both
+          </div>
+          <div
+            *ngIf="f.term.invalid && (f.term.dirty || f.term.touched)"
+            class="text-danger"
+          >
+            Term selection is required.
+          </div>
+        </div>
+      </div>
+
+      <div class="row mb-3">
+        <h5>Expected Rent*</h5>
+        <div class="col-6">
+          <label for="expectedRent" class="d-block">Expected Rent</label>
+          <input
+            id="expectedRent"
+            class="w-100 border border-dark border-2"
+            type="text"
+            formControlName="expectedRent"
+          />
+          <div
+            *ngIf="
+              f.expectedRent.invalid &&
+              (f.expectedRent.dirty || f.expectedRent.touched)
+            "
+            class="text-danger"
+          >
+            <div *ngIf="f.expectedRent.errors?.required">
+              Expected rent is required.
+            </div>
+            <div *ngIf="f.expectedRent.errors?.pattern">
+              Expected rent must be a number.
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div>
+            <input type="checkbox" formControlName="rentNegotiable" />
+            Negotiable
+          </div>
+          <label for="">Price Mode</label>
+          <div>
+            <input
+              type="radio"
+              value="Per Month"
+              formControlName="priceMode"
+            />Per Month
+          </div>
+          <div>
+            <input
+              type="radio"
+              value="Utilities included in rent"
+              formControlName="priceMode"
+            />Utilities included in rent
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <h5>Is the room Apartment furnished?*</h5>
+        <div class="col-12">
+          <input type="radio" formControlName="Furnished" value="Yes" /> Yes
+        </div>
+        <div class="col-12">
+          <input type="radio" formControlName="Furnished" value="No" /> No
+        </div>
+        <div
+          *ngIf="
+            f.Furnished.invalid && (f.Furnished.dirty || f.Furnished.touched)
+          "
+          class="text-danger"
+        >
+          Furnished selection is required.
+        </div>
+      </div>
+
+      <div class="row mb-3" formGroupName="amenitiesIncluded">
+        <h5>Amenities Included</h5>
+        <div class="col-4">
+          <div>
+            <input
+              type="checkbox"
+              class="form-check-input"
+              formControlName="gymFitnessCenter"
+            />
+            Gym/Fitness Center
+          </div>
+          <div>
+            <input
+              type="checkbox"
+              class="form-check-input"
+              formControlName="pool"
+            />
+            Swimming Pool
+          </div>
+          <div>
+            <input
+              type="checkbox"
+              class="form-check-input"
+              formControlName="parking"
+            />
+            Car Park
+          </div>
+          <div>
+            <input
+              type="checkbox"
+              class="form-check-input"
+              formControlName="visitorParking"
+            />
+            Visitor Parking
+          </div>
+        </div>
+        <div class="col-4">
+          <div>
+            <input
+              type="checkbox"
+              class="form-check-input"
+              formControlName="backup"
+            />
+            Power Backup
+          </div>
+          <div>
+            <input
+              type="checkbox"
+              class="form-check-input"
+              formControlName="garbageDisposal"
+            />
+            Garbage Disposal
+          </div>
+          <div>
+            <input
+              type="checkbox"
+              class="form-check-input"
+              formControlName="privateLawn"
+            />
+            Private Lawn
+          </div>
+          <div>
+            <input
+              type="checkbox"
+              class="form-check-input"
+              formControlName="waterHeater"
+            />
+            Water Heater
+          </div>
+        </div>
+        <div class="col-4">
+          <div>
+            <input
+              type="checkbox"
+              class="form-check-input"
+              formControlName="plantSecurity"
+            />
+            Plant Security System
+          </div>
+          <div>
+            <input
+              type="checkbox"
+              class="form-check-input"
+              formControlName="laundryService"
+            />
+            Laundry Service
+          </div>
+          <div>
+            <input
+              type="checkbox"
+              class="form-check-input"
+              formControlName="Elevator"
+            />
+            Elevator
+          </div>
+          <div>
+            <input
+              type="checkbox"
+              class="form-check-input"
+              formControlName="clubHouse"
+            />
+            Club House
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <h5>Description</h5>
+        <div class="col-12">
+          <label for="descriptionTitle" class="d-inline">Title*</label>
+          <input
+            id="descriptionTitle"
+            type="text"
+            class="w-100 border border-dark border-2"
+            formControlName="descriptionTitle"
+          />
+          <div
+            *ngIf="
+              f.descriptionTitle.invalid &&
+              (f.descriptionTitle.dirty || f.descriptionTitle.touched)
+            "
+            class="text-danger"
+          >
+            Description title is required.
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="descriptionContent" class="d-block">Description*</label>
+        <textarea
+          id="descriptionContent"
+          class="w-100 border border-dark border-2"
+          formControlName="descriptionContent"
+        ></textarea>
+        <div
+          *ngIf="
+            f.descriptionContent.invalid &&
+            (f.descriptionContent.dirty || f.descriptionContent.touched)
+          "
+          class="text-danger"
+        >
+          <div *ngIf="f.descriptionContent.errors?.required">
+            Description is required.
+          </div>
+          <div *ngIf="f.descriptionContent.errors?.minlength">
+            Description must be at least 20 characters long.
+          </div>
+        </div>
+      </div>
+
+      <button
+        type="submit"
+        [disabled]="propertyForm.invalid"
+        class="btn btn-primary"
+      >
+        Submit
+      </button>
+    </form>
+  </div>
+</div>
