@@ -6,12 +6,11 @@ import { Injectable } from '@angular/core';
 export class CommentsService {
 
   private storageKey = 'comments';
+  private comments: { [apartmentId: number]: string[] } = {};
 
   constructor() {
     this.loadComments();
   }
-
-  private comments: { [apartmentId: number]: string[] } = {};
 
   private loadComments() {
     const storedComments = localStorage.getItem(this.storageKey);
